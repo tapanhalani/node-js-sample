@@ -16,14 +16,14 @@ app.get('/execute', async function(request, response) {
   console.log('query in request is', request.query);
 
   const command = request.query.command;
-  console.log('command is ', command);
+  const pod = request.query.pod;
+  const ns = request.query.ns;
+  console.log('query params is ', command, pod, ns);
 
-  // child_process.execFile('kubectl', ['exec', 'test--dev-766fd9cbd8-9b6t6', '-n=git', '--', 'ls -la .'], function(error, stdout, stderr){
-  child_process.exec('kubectl exec test--dev-766fd9cbd8-9b6t6 -n=git -- ' + command, function(error, stdout, stderr){
+  child_process.exec('kubectl exec ' + pod + ' -n=' + ns + ' -- ' + command, function(error, stdout, stderr){
     if (error) {
       console.log('error in execfile', error);
     }
-    console.log('stderr........', stderr);
     console.log('stdout........', stdout);
   });
 
