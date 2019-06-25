@@ -1,9 +1,7 @@
 var express = require('express')
 var app = express()
+const child_process = require('child_process');
 
-const Request = require('kubernetes-client/backends/request')
-const backend = new Request(Request.config.fromKubeconfig('~/.kube/config'))
-const client = new Client({ backend, version: '1.13' })
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
@@ -14,13 +12,20 @@ app.get('/', function(request, response) {
   response.send('Hello World!')
 })
 
-app.get('/kubecommand', function(request, response) {
-  const namespaces = await client.api.v1.namespaces.get();
-  console.log('request is', request);
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~');
-  console.log('namespaces found are', namespaces);
-  const deployments = await client.api.v1.namespaces('git').get();
-  console.log('deployments in git namespace are', deployments);
+app.get('/execute', async function(request, response) {
+  console.log('query in request is', request.query);
+
+  const command = request.query.command;
+  console.log('command is ', command);
+
+  // child_process.execFile('kubectl', ['exec', 'test--dev-766fd9cbd8-9b6t6', '-n=git', '--', 'ls -la .'], function(error, stdout, stderr){
+  child_process.exec('kubectl exec test--dev-766fd9cbd8-9b6t6 -n=git -- ' + command, function(error, stdout, stderr){
+    if (error) {
+      console.log('error in execfile', error);
+    }
+    console.log('stderr........', stderr);
+    console.log('stdout........', stdout);
+  });
 
   response.send('Hello World!')
 })
