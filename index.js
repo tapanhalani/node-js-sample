@@ -20,7 +20,7 @@ app.get('/execute', async function(request, response) {
   const ns = request.query.ns;
   console.log('query params is ', command, pod, ns);
 
-  child_process.exec('kubectl exec ' + pod + ' -n=' + ns + ' -- ' + command, function(error, stdout, stderr){
+  child_process.exec('kubectl exec -t ' + pod + ' -n=' + ns + ' -- /bin/bash -l -c ' + `"${command}"`, function(error, stdout, stderr){
     if (error) {
       console.log('error in execfile', error);
     }
