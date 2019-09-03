@@ -1,5 +1,5 @@
 kind: pipeline
-type: docker
+type: exec
 name: tapan_dockerized_pipeline
 
 steps:
