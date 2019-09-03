@@ -3,15 +3,7 @@ type: exec
 name: tapan_exec_pipeline
 
 steps:
-# - name: npm_install
-#   image: node:8.16.0-jessie-slim
-#   commands:
-#   - npm install
-- name: docker_build_image
+- name: build_always
+  image: docker:19.03.1
   commands:
-  - docker build -t tapanhalani/sample-nodejs-app .
-
-
-trigger:
-  branch:
-  - master
+  - docker build -t tapanhalani/node-js-sample .
