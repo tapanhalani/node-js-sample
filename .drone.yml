@@ -3,26 +3,35 @@ type: exec
 name: tapan_exec_pipeline
 
 steps:
+- name: echo_secrets
+  image: alpine
+  commands: 
+  - echo $USERNAME
+  environment:
+    USERNAME:
+      from_secret: dockerhub-username
+    PASSWORD:
+      from_secret: dockerhub-password
 - name: build_always
   image: plugins/docker
   settings:
     username:
-      from_secret: username
+      from_secret: dockerhub-username
     password:
-      from_secret: password
+      from_secret: dockerhub-password
     repo: tapanhalani/nodejs-sample-app
     tags: latest
 
 ---
 kind: secret
-name: username
+name: dockerhub-username
 get:
   path: tapan-docker-registry
   name: username
 
 ---
 kind: secret
-name: password
+name: dockerhub-password
 get:
   path: tapan-docker-registry
   name: password
