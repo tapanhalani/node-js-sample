@@ -5,5 +5,9 @@ name: tapan_exec_pipeline
 steps:
 - name: build_always
   image: plugins/docker
-  commands:
-  - docker build -t tapanhalani/node-js-sample .
+  settings:
+    # username: tapanhalani
+    # password: 
+    repo: tapanhalani/nodejs-sample-app
+    tags: latest
+  
