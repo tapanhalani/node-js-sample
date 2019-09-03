@@ -6,8 +6,24 @@ steps:
 - name: build_always
   image: plugins/docker
   settings:
-    # username: tapanhalani
-    # password: 
+    username:
+      from_secret: username
+    password:
+      from_secret: password
     repo: tapanhalani/nodejs-sample-app
     tags: latest
+
+---
+kind: secret
+name: username
+get:
+  path: tapan-docker-registry
+  name: username
+
+---
+kind: secret
+name: password
+get:
+  path: tapan-docker-registry
+  name: password
   
