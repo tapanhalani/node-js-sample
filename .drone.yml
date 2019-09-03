@@ -8,6 +8,6 @@ steps:
 #   commands:
 #   - npm install
 - name: docker_build_image
-  image: docker:19.03.1
+  # image: docker:19.03.1
   commands:
   - docker build -t tapanhalani/sample-nodejs-app .
