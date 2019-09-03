@@ -1,9 +1,9 @@
 kind: pipeline
-type: exec
+type: docker
 name: tapan_pipeline
 
 steps:
-- name: docker_build
-  image: docker
+- name: npm_install
+  image: node:8.16.0-jessie-slim
   commands:
-  - docker build -t tapanhalani/drone-sample-app:latest .
+  - npm install
