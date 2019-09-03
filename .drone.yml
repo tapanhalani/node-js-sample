@@ -1,9 +1,13 @@
 kind: pipeline
 type: docker
-name: tapan_pipeline
+name: tapan_dockerized_pipeline
 
 steps:
-- name: npm_install
-  image: node:8.16.0-jessie-slim
+# - name: npm_install
+#   image: node:8.16.0-jessie-slim
+#   commands:
+#   - npm install
+- name: docker_build_image
+  image: docker:19.03.1
   commands:
-  - npm install
+  - docker build -t tapanhalani/sample-nodejs-app .
