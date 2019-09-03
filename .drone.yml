@@ -1,0 +1,9 @@
+kind: pipeline
+type: docker
+name: tapan_pipeline
+
+steps:
+- name: docker_build
+  image: docker
+  commands:
+  - docker build -t tapanhalani/drone-sample-app:latest .
