@@ -1,0 +1,12 @@
+#This is an example LayerCI configuration for NodeJS 10.x!
+FROM vm/ubuntu:18.04
+
+# Install node 10
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt install nodejs
+# RUN npm install -g http-server
+WORKDIR app
+COPY ./ ./
+RUN npm install
+RUN npm run start
+EXPOSE WEBSITE http://localhost:5000
