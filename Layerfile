@@ -8,5 +8,5 @@ RUN apt install nodejs
 WORKDIR app
 COPY ./ ./
 RUN npm install
-RUN npm run start
+RUN BACKGROUND npm run start
 EXPOSE WEBSITE http://localhost:5000
